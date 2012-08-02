@@ -12,11 +12,15 @@ class Node
 public:
     Node();
     void linkThread(LinkingThread*);
+    void draw();
 
 private:
     Vector speed;
     Vector earthForce;
     QList<LinkingThread*> threads;
+
+    double x;
+    double y;
 
     const double weigth;
 

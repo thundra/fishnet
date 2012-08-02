@@ -3,18 +3,18 @@
 
 #include "node.h"
 #include "linkingthread.h"
+#include "QGenericMatrix"
 
 class FishNet
 {
 public:
-    FishNet(int columns = 10, int rows = 10);
+    FishNet();
     ~FishNet();
 
     void calculate();
 
 private:
-    int columns;
-    int rows;
+    QGenericMatrix<10, 10, Node*> matrix;
 };
 
 #endif // FISHNET_H
