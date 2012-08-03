@@ -4,15 +4,17 @@
 #include "vector.h"
 #include "QList"
 #include "linkingthread.h"
+#include "QDebug.h"
 
 class LinkingThread;
 
 class Node
 {
 public:
-    Node();
+    Node(int, int);
     void linkThread(LinkingThread*);
     void draw();
+    void listOfThreads();
 
 private:
     Vector speed;
@@ -21,6 +23,8 @@ private:
 
     double x;
     double y;
+    int row;
+    int column;
 
     const double weigth;
 

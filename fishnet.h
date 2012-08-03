@@ -14,7 +14,7 @@ public:
     void calculate();
 
 private:
-    QGenericMatrix<10, 10, Node*> matrix;
+    Node* matrix[10][10];
 };
 
 #endif // FISHNET_H
