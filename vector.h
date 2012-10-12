@@ -8,7 +8,7 @@ public:
 
     double getX() const {return x;}
     double getY() const {return y;}
-    void set(double, double);
+    void set(double x, double y);
 
     Vector operator+ (const Vector&) const;
     Vector operator- (const Vector&) const;

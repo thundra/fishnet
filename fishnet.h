@@ -12,6 +12,7 @@ public:
     ~FishNet();
 
     void calculate();
+//    virtual void paint() = 0;
 
 private:
     Node* matrix[10][10];

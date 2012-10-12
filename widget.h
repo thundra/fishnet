@@ -1,7 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QGLWidget>
+#include <QtOpenGL>
 #include "fishnet.h"
 
 class Widget : public QGLWidget
@@ -12,12 +12,15 @@ public:
     Widget(QGLWidget *parent = 0);
     ~Widget();
 
+protected:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
 
 private:
     FishNet net;
+    QTime timeUpdate;
+    QTimer timer;
 
 };
 

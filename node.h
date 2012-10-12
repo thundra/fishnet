@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "QList"
 #include "linkingthread.h"
-#include "QDebug.h"
+#include <QDebug>
 
 class LinkingThread;
 
