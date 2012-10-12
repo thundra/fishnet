@@ -41,7 +41,7 @@ void Widget::paintGL()
 
 void Widget::updateNet()
 {
-    const double halfSize = 25.0f;
+    const double halfSize = 5.0f;
 //    double x = -25.0f;
 //    double y = 25.0f;
 
