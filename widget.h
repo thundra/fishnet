@@ -3,6 +3,7 @@
 
 #include <QtOpenGL>
 #include "fishnet.h"
+#include <QDebug>
 
 class Widget : public QGLWidget
 {
@@ -16,11 +17,20 @@ protected:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
+    void updateNet();
+
+//    virtual void mousePressEvent(QMouseEvent* event);
+    virtual void mouseMoveEvent(QMouseEvent* event);
+//    virtual void mouseReleaseEvent(QMouseEvent* event);
 
 private:
     FishNet net;
     QTime timeUpdate;
     QTimer timer;
+
+    double x;
+    double y;
+    double coordRatio;
 
 };
 
