@@ -4,6 +4,7 @@
 #include "vector.h"
 #include "QList"
 #include "linkingthread.h"
+#include <QtOpenGL>
 #include <QDebug>
 
 class LinkingThread;
@@ -15,6 +16,9 @@ public:
     void linkThread(LinkingThread*);
     void draw();
     void listOfThreads();
+    void release();
+    bool check(double x, double y);
+    void setXY(double x, double y);
 
 private:
     Vector speed;
@@ -27,6 +31,7 @@ private:
     int column;
 
     const double weigth;
+    const double halfSize;
 
 };
 

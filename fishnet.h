@@ -11,8 +11,10 @@ public:
     FishNet();
     ~FishNet();
 
-    void calculate();
-//    virtual void paint() = 0;
+//    void calculate();
+    void paint();
+    Node* getNodeAtPoint(double x, double y);
+
 
 private:
     Node* matrix[10][10];

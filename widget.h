@@ -11,7 +11,7 @@ class Widget : public QGLWidget
 
 public:
     Widget(QGLWidget *parent = 0);
-    ~Widget();
+    ~Widget() {}
 
 protected:
     void initializeGL();
@@ -19,12 +19,13 @@ protected:
     void resizeGL(int w, int h);
     void updateNet();
 
-//    virtual void mousePressEvent(QMouseEvent* event);
+    virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseMoveEvent(QMouseEvent* event);
-//    virtual void mouseReleaseEvent(QMouseEvent* event);
+    virtual void mouseReleaseEvent(QMouseEvent* event);
 
 private:
     FishNet net;
+    Node* activeNode;
     QTime timeUpdate;
     QTimer timer;
 

@@ -1,17 +1,13 @@
 #include "widget.h"
 
 Widget::Widget(QGLWidget *parent)
-    : QGLWidget(parent), x(-5), y(-5)
+    : QGLWidget(parent), x(-5), y(-5),
+      activeNode(NULL)
 {
     setWindowTitle(QString("Fishnet"));
     setGeometry(100, 100, 800, 600);
 
     coordRatio = geometry().height() / 200;
-
-}
-
-Widget::~Widget()
-{
 
 }
 
@@ -21,7 +17,6 @@ void Widget::initializeGL()
 
     timer.start(10);
     timeUpdate.start();
-//    connect(SIGNAL(),)
 }
 
 void Widget::paintGL()
@@ -33,7 +28,8 @@ void Widget::paintGL()
     glRotatef(0, 0, 0, 0);
     glTranslated(-0.45, -0.3, 0);
 
-    updateNet();
+    net.paint();
+//    updateNet();
 
     glLoadIdentity();
     glFlush();
@@ -41,7 +37,7 @@ void Widget::paintGL()
 
 void Widget::updateNet()
 {
-    const double halfSize = 5.0f;
+    const double halfSize = 15.0f;
 //    double x = -25.0f;
 //    double y = 25.0f;
 
@@ -82,24 +78,36 @@ void Widget::resizeGL(int w, int h)
     glLoadIdentity();
 }
 
-//void Widget::mousePressEvent(QMouseEvent* event)
-//{
-//    qDebug() << event->x() << ", " << event->y();
-//    x /= 3;
-//    y /= 3;
-//}
+void Widget::mousePressEvent(QMouseEvent* event)
+{
+    qDebug() << "Widget::mousePressEvent";
+    activeNode = net.getNodeAtPoint(event->x(), event->y());
+    if (activeNode != NULL)
+    {
+        qDebug() << event->x() << ", " << event->y();
+        x /= 3;
+        y /= 3;
+    }
+}
 
 void Widget::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug() << event->x() << ", " << event->y();
-    x = (event->x() - geometry().width()/2) / coordRatio;
-    y = (event->y() - geometry().height()/2) / -coordRatio;
-    qDebug() << x << ", " << y;
-    updateGL();
+    if (activeNode != NULL)
+    {
+        x = (event->x() - geometry().width()/2) / coordRatio;
+        y = (event->y() - geometry().height()/2) / -coordRatio;
+
+        activeNode->setXY(x, y);
+        qDebug() << event->x() << ", " << event->y();
+        qDebug() << x << ", " << y;
+
+        updateGL();
+    }
 }
 
-//void Widget::mouseReleaseEvent(QMouseEvent *event)
-//{
-//    qDebug() << event->x() << ", " << event->y();
-//}
+void Widget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (activeNode != NULL) activeNode->release();
+    activeNode = NULL;
+}
 
