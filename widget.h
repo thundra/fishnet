@@ -17,7 +17,6 @@ protected:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
-    void updateNet();
 
     virtual void mousePressEvent(QMouseEvent* event);
     virtual void mouseMoveEvent(QMouseEvent* event);
@@ -29,12 +28,11 @@ protected:
     };
 
 private:
-    Point convertCoordinates(double x, double y);
+    Point convertWidgetCoordinates(double x, double y);
 
     FishNet net;
     Node* activeNode;
-    QTime timeUpdate;
-    QTimer timer;
+    QTimer timeUpdate;
 
     double x;
     double y;

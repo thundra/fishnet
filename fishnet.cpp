@@ -26,16 +26,22 @@ FishNet::FishNet()
             }
         }
     }
+    timer.start();
 }
 
 FishNet::~FishNet()
 {
-
+    for (int row = 0; row < NUMBERS_OF_ROW; row++)
+    {
+        for (int column = 0; column < NUMBERS_OF_COLUMNS; column++)
+        {
+            delete matrix[row][column];
+        }
+    }
 }
 
 void FishNet::paint()
 {
-    qDebug() << "FishNet::paint";
     for (int row = 0; row < NUMBERS_OF_ROW; row++)
     {
         for (int column = 0; column < NUMBERS_OF_COLUMNS; column++)
@@ -47,17 +53,13 @@ void FishNet::paint()
 
 Node* FishNet::getNodeAtPoint(double x, double y)
 {
-    qDebug() << __FUNCTION__;
     Node* node = NULL;
     for (int row = 0; row < NUMBERS_OF_ROW; row++)
     {
-        qDebug() << __LINE__;
         for (int column = 0; column < NUMBERS_OF_COLUMNS; column++)
         {
-            qDebug() << __LINE__;
             if (matrix[row][column]->check(x, y))
             {
-                qDebug() << __LINE__;
                 node = matrix[row][column];
                 break;
             }

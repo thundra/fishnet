@@ -7,16 +7,19 @@
 #include <QtOpenGL>
 #include <QDebug>
 
+#define LIMIT_FRAME 190
+
 class LinkingThread;
 
 class Node
 {
 public:
     Node(int, int);
+    ~Node();
     void linkThread(LinkingThread*);
     void draw();
     void listOfThreads();
-    void release();
+//    void release();
     bool check(double x, double y);
     void setXY(double x, double y);
 

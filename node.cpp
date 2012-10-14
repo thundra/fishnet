@@ -7,6 +7,14 @@ Node::Node(int row, int column) : row(row), column(column), weigth(20.0),
     y = 150 - row * 300 / 9.0f;
 }
 
+Node::~Node()
+{
+    if (row != 0 && column == 0)
+    {
+
+    }
+}
+
 void Node::linkThread(LinkingThread *newThread)
 {
     threads.append(newThread);
@@ -19,18 +27,12 @@ void Node::listOfThreads()
 
 void Node::draw()
 {
-    qDebug() << "Node::draw" << x << "," << y;
-
-//    glColor3f(0.98, 0.625, 0.12);
     glColor3f(1.0, 1.0, 1.0);
     glRectf(x-halfSize, y-halfSize, x+halfSize, y+halfSize);
 }
 
 bool Node::check(double x, double y)
 {
-    qDebug() << __FUNCTION__;
-    qDebug() << x << "," << y;
-    qDebug() << "this" << this->x << "," << this->y;
     bool result = false;
 
     if ((x >= (this->x - halfSize) && x <= (this->x + halfSize)) &&
@@ -42,15 +44,13 @@ bool Node::check(double x, double y)
     return result;
 }
 
-void Node::release()
-{
+//void Node::release()
+//{
 
-}
+//}
 
 void Node::setXY(double x, double y)
 {
-    this->x = x;
-    this->y = y;
-
-    qDebug() << "Node::setXY" << this->x << "," << this->y;
+    if (x <= LIMIT_FRAME && x >= -LIMIT_FRAME) this->x = x;
+    if (y <= LIMIT_FRAME && y >= -LIMIT_FRAME) this->y = y;
 }

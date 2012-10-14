@@ -18,6 +18,7 @@ public:
 
 private:
     Node* matrix[10][10];
+    QTime timer;
 };
 
 #endif // FISHNET_H
