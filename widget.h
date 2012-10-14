@@ -23,7 +23,14 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
 
+    struct Point {
+        double x;
+        double y;
+    };
+
 private:
+    Point convertCoordinates(double x, double y);
+
     FishNet net;
     Node* activeNode;
     QTime timeUpdate;
@@ -31,7 +38,8 @@ private:
 
     double x;
     double y;
-    double coordRatio;
+    double aspect;
+    double scale;
 
 };
 

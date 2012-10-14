@@ -6,9 +6,6 @@ Widget::Widget(QGLWidget *parent)
 {
     setWindowTitle(QString("Fishnet"));
     setGeometry(100, 100, 800, 600);
-
-    coordRatio = geometry().height() / 200;
-
 }
 
 void Widget::initializeGL()
@@ -38,8 +35,6 @@ void Widget::paintGL()
 void Widget::updateNet()
 {
     const double halfSize = 15.0f;
-//    double x = -25.0f;
-//    double y = 25.0f;
 
     glColor3f(0.98, 0.625, 0.12);
     glRectf(x-halfSize, y-halfSize, x+halfSize, y+halfSize);
@@ -47,32 +42,19 @@ void Widget::updateNet()
 
 void Widget::resizeGL(int w, int h)
 {
-    double aspect;
-
     aspect = w / (double)h;
-    coordRatio = geometry().height() / h;
 
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    glOrtho(0, 100, 100, 0, -1, -1);
-//    gluPerspective(10.0f, aspect, 0.001f, 100.0f);
-//    if ( w <= h ) {
-//        glOrtho(-1000.0, 1000.0, -1000/aspect, 1000/aspect, 1.0, -1.0);
-//    } else {
-//        glOrtho(-1000*aspect, 1000*aspect, -1000.0, 1000.0, 1.0, -1.0);
-//    }
-
-    glOrtho(-w/2, w/2, -h/2, h/2, 1.0, -1.0);
-
-//    if ( w <= h ) {
-//        glOrtho(-w/2, w/2, -h/2, h/2, 1.0, -1.0);
-//    } else {
-//        glOrtho(, 1000*aspect, -1000.0, 1000.0, 1.0, -1.0);
-//    }
-
-    glTranslatef(0, 0, 0);
+    if ( aspect <= 1 ) {
+        glOrtho(-200.0, 200.0, -200/aspect, 200/aspect, 1.0, -1.0);
+        scale = (double)400 / w;
+    } else {
+        glOrtho(-200*aspect, 200*aspect, -200.0, 200.0, 1.0, -1.0);
+        scale = (double)400 / h;
+    }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -81,12 +63,13 @@ void Widget::resizeGL(int w, int h)
 void Widget::mousePressEvent(QMouseEvent* event)
 {
     qDebug() << "Widget::mousePressEvent";
-    activeNode = net.getNodeAtPoint(event->x(), event->y());
+    Widget::Point point = convertCoordinates(event->x(), event->y());
+
+    activeNode = net.getNodeAtPoint(point.x, point.y);
     if (activeNode != NULL)
     {
-        qDebug() << event->x() << ", " << event->y();
-        x /= 3;
-        y /= 3;
+//        qDebug() << __FUNCTION__ << " " << __LINE__;
+        activeNode->setXY(point.x, point.y);
     }
 }
 
@@ -94,12 +77,13 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
 {
     if (activeNode != NULL)
     {
-        x = (event->x() - geometry().width()/2) / coordRatio;
-        y = (event->y() - geometry().height()/2) / -coordRatio;
+        Point point = convertCoordinates(event->x(), event->y());
+//        x = (event->x() - geometry().width()/2) / coordRatio;
+//        y = (event->y() - geometry().height()/2) / -coordRatio;
 
-        activeNode->setXY(x, y);
-        qDebug() << event->x() << ", " << event->y();
-        qDebug() << x << ", " << y;
+        activeNode->setXY(point.x, point.y);
+//        qDebug() << event->x() << ", " << event->y();
+//        qDebug() << x << ", " << y;
 
         updateGL();
     }
@@ -109,5 +93,20 @@ void Widget::mouseReleaseEvent(QMouseEvent *event)
 {
     if (activeNode != NULL) activeNode->release();
     activeNode = NULL;
+}
+
+Widget::Point Widget::convertCoordinates(double x, double y)
+{
+    Point point;
+
+    if (aspect > 1) {
+        point.x = x * scale - 200 * aspect;
+        point.y = -y * scale + 200;
+    } else {
+        point.x = x * scale - 200;
+        point.y = -y * scale + 200 * aspect;
+    }
+
+    return point;
 }
 
