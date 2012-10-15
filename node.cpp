@@ -31,7 +31,8 @@ void Node::draw(int timeElapsed)
     {
         x += speed.getX() * timeElapsed;
         y += speed.getY() * timeElapsed;
-        if (y <= -LIMIT_FRAME){
+        if (y <= -LIMIT_FRAME)
+        {
             y = -LIMIT_FRAME;
             speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
         }
@@ -65,8 +66,9 @@ void Node::calculateNextState(int timeElapsed)
     }
 }
 
-void Node::release()
+void Node::release(Vector newSpeed)
 {
+    speed = newSpeed;
     hooked = false;
 }
 

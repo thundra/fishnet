@@ -37,6 +37,8 @@ private:
     FishNet net;
     Node* activeNode;
     QTimer timeUpdate;
+    QTime timer;
+    Point lastPoint;
 
     double x;
     double y;

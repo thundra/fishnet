@@ -66,17 +66,21 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
 {
     if (activeNode != NULL)
     {
-        Point point = convertWidgetCoordinates(event->x(), event->y());
-        activeNode->setXY(point.x, point.y);
+        timer.restart();
+        lastPoint = convertWidgetCoordinates(event->x(), event->y());
+        activeNode->setXY(lastPoint.x, lastPoint.y);
         timeUpdate.stop();
         updateGL();
         timeUpdate.start();
     }
 }
 
-void Widget::mouseReleaseEvent(QMouseEvent *)
+void Widget::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (activeNode != NULL) activeNode->release();
+    int timeElapsed = timer.elapsed();
+    Vector speed((event->x()-lastPoint.x)/(timeElapsed*1000000),
+                 (event->y()-lastPoint.y)/(timeElapsed*1000000));
+    if (activeNode != NULL) activeNode->release(speed);
     activeNode = NULL;
 }
 

@@ -19,7 +19,7 @@ public:
     void linkThread(LinkingThread*);
     void draw(int timeElapsed);
     void listOfThreads();
-    void release();
+    void release(Vector newSpeed);
     bool check(double x, double y);
     void setXY(double x, double y);
 
