@@ -46,7 +46,7 @@ Vector& Vector::operator-= (const Vector& other)
     return *this;
 }
 
-Vector& Vector::operator*= (double multiplier)
+Vector& Vector::operator*= (int multiplier)
 {
     x *= multiplier;
     y *= multiplier;
@@ -54,7 +54,7 @@ Vector& Vector::operator*= (double multiplier)
     return *this;
 }
 
-Vector& Vector::operator/= (double multiplier)
+Vector& Vector::operator/= (int multiplier)
 {
     x /= multiplier;
     y /= multiplier;

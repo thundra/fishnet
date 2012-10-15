@@ -17,13 +17,15 @@ public:
     Node(int, int);
     ~Node();
     void linkThread(LinkingThread*);
-    void draw();
+    void draw(int timeElapsed);
     void listOfThreads();
-//    void release();
+    void release();
     bool check(double x, double y);
     void setXY(double x, double y);
 
 private:
+    void calculateNextState(int timeElapsed);
+
     Vector speed;
     Vector earthForce;
     QList<LinkingThread*> threads;
@@ -32,6 +34,7 @@ private:
     double y;
     int row;
     int column;
+    bool hooked;
 
     const double weigth;
     const double halfSize;

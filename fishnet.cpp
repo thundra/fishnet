@@ -42,11 +42,12 @@ FishNet::~FishNet()
 
 void FishNet::paint()
 {
+    int timeElapsed = timer.restart();
     for (int row = 0; row < NUMBERS_OF_ROW; row++)
     {
         for (int column = 0; column < NUMBERS_OF_COLUMNS; column++)
         {
-            matrix[row][column]->draw();
+            matrix[row][column]->draw(timeElapsed);
         }
     }
 }

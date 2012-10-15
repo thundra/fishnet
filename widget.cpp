@@ -13,6 +13,7 @@ void Widget::initializeGL()
     glClearColor(0,0,0,1);
 
     connect(&timeUpdate, SIGNAL(timeout()), SLOT(update()));
+//    connect(&timeUpdate, SIGNAL(timeout()), this, SLOT(logout()));
     timeUpdate.setInterval(10);
     timeUpdate.start();
 }
@@ -56,7 +57,9 @@ void Widget::mousePressEvent(QMouseEvent* event)
 {
     Widget::Point point = convertWidgetCoordinates(event->x(), event->y());
     activeNode = net.getNodeAtPoint(point.x, point.y);
+    timeUpdate.stop();
     if (activeNode != NULL) activeNode->setXY(point.x, point.y);
+    timeUpdate.start();
 }
 
 void Widget::mouseMoveEvent(QMouseEvent *event)
@@ -65,13 +68,15 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
     {
         Point point = convertWidgetCoordinates(event->x(), event->y());
         activeNode->setXY(point.x, point.y);
+        timeUpdate.stop();
         updateGL();
+        timeUpdate.start();
     }
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *)
 {
-//    if (activeNode != NULL) activeNode->release();
+    if (activeNode != NULL) activeNode->release();
     activeNode = NULL;
 }
 
@@ -88,5 +93,11 @@ Widget::Point Widget::convertWidgetCoordinates(double x, double y)
     }
 
     return point;
+}
+
+void Widget::logout()
+{
+    static int k = 0;
+    qDebug() << "Ops!" << k++;
 }
 

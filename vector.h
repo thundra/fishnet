@@ -19,8 +19,8 @@ public:
     Vector& operator+= (const Vector&);
     Vector& operator-= (const Vector&);
 
-    Vector& operator*= (double);
-    Vector& operator/= (double);
+    Vector& operator*= (int);
+    Vector& operator/= (int);
 
     bool operator== (Vector&) const;
     bool operator!= (Vector&) const;
