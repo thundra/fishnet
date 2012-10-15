@@ -5,9 +5,6 @@ class Vector
 {
 public:
     Vector(double x = 0, double y = 0);
-    Vector(const Vector&);
-
-    Vector& operator= (const Vector&);
 
     double getX() const {return x;}
     double getY() const {return y;}
