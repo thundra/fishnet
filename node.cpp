@@ -11,7 +11,7 @@ Node::~Node()
 {
     if (row != 0 && column == 0)
     {
-
+        // TODO: Memory leakage - linking threads
     }
 }
 
@@ -35,7 +35,7 @@ void Node::draw(int timeElapsed)
             y = -LIMIT_FRAME;
             speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
         }
-        if (speed.getY() > -0.01 && speed.getY() < 0.01) speed.set(0, 0);
+        if (speed.getY() > -0.07 && speed.getY() < 0.07) speed.set(0, 0);
     }
 
     glColor3f(1.0, 1.0, 1.0);
