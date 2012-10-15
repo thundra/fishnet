@@ -4,6 +4,20 @@ Vector::Vector(double x, double y): x(x), y(y)
 {
 }
 
+Vector::Vector(const Vector &other)
+{
+    x = other.getX();
+    y = other.getY();
+}
+
+Vector& Vector::operator =(const Vector& other)
+{
+    x = other.getX();
+    y = other.getY();
+
+    return *this;
+}
+
 void Vector::set(double x, double y)
 {
     this->x = x;

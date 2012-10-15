@@ -78,8 +78,8 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
 void Widget::mouseReleaseEvent(QMouseEvent *event)
 {
     int timeElapsed = timer.elapsed();
-    Vector speed((event->x()-lastPoint.x)/(timeElapsed*1000000),
-                 (event->y()-lastPoint.y)/(timeElapsed*1000000));
+    Vector speed((event->x()-lastPoint.x)/(timeElapsed*20),
+                 (event->y()-lastPoint.y)/(timeElapsed*20));
     if (activeNode != NULL) activeNode->release(speed);
     activeNode = NULL;
 }
