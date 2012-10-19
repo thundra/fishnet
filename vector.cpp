@@ -1,4 +1,5 @@
 #include "vector.h"
+#include "math.h"
 
 Vector::Vector(double x, double y): x(x), y(y)
 {
@@ -70,4 +71,9 @@ bool Vector::operator== (Vector& other) const
 bool Vector::operator!= (Vector& other) const
 {
     return !(*this == other);
+}
+
+double Vector::getLength() const
+{
+    return hypot(x, y);
 }
