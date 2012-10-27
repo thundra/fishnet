@@ -21,6 +21,11 @@ Vector Vector::operator- (const Vector& other) const
     return Vector(x-other.getX(), y-other.getY());
 }
 
+Vector Vector::operator- () const
+{
+    return Vector(-x, -y);
+}
+
 Vector Vector::operator* (double multiplier) const
 {
     return Vector(x * multiplier, y * multiplier);

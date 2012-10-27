@@ -28,23 +28,26 @@ void Node::listOfThreads()
 
 void Node::draw(int timeElapsed)
 {
-    if (!hooked)
-    {
+//    if ((row != 0 && column != 0) ||
+//        (row != 0 && column != 9)) {
+        if (!hooked)
+        {
+            calculateNextState(timeElapsed);
+    //        x += speed.getX() * timeElapsed;
+    //        y += speed.getY() * timeElapsed;
+    //        if (y <= -LIMIT_FRAME)
+    //        {
+    //            y = -LIMIT_FRAME;
+    //            speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
+    //        }
+    //        if (speed.getY() > -0.07 && speed.getY() < 0.07) speed.set(0, 0);
+        }
+
+        glColor3f(1.0, 1.0, 1.0);
+        glRectf(x-halfSize, y-halfSize, x+halfSize, y+halfSize);
+
         calculateNextState(timeElapsed);
-//        x += speed.getX() * timeElapsed;
-//        y += speed.getY() * timeElapsed;
-//        if (y <= -LIMIT_FRAME)
-//        {
-//            y = -LIMIT_FRAME;
-//            speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
-//        }
-//        if (speed.getY() > -0.07 && speed.getY() < 0.07) speed.set(0, 0);
-    }
-
-    glColor3f(1.0, 1.0, 1.0);
-    glRectf(x-halfSize, y-halfSize, x+halfSize, y+halfSize);
-
-    calculateNextState(timeElapsed);
+//    }
 }
 
 bool Node::check(double x, double y)
@@ -82,10 +85,18 @@ Vector Node::calculateAcceleration(int timeElapsed)
 
     // gravity compute
     // airresistence compute
+    double resistenceModule;
+    Vector airResistenceForce;
+    if (speed.getLength() != 0)
+    {
+        resistenceModule = speed.getLength() * speed.getLength() * 0.001;
+        airResistenceForce = -speed * resistenceModule / speed.getLength();
+    }
     // Sum all forces and devide it by weight
 //    Vector acc(-0.000001, -0.000005);
     Vector acc;
-    acc += linkForce * 0.000001;
+    acc += (linkForce * 0.000001 + airResistenceForce);
+//    qDebug() << acc.getLength() << " " << airResistenceForce.getLength();
     return acc;
 }
 

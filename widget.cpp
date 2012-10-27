@@ -52,9 +52,9 @@ void Widget::mousePressEvent(QMouseEvent* event)
 {
     Point point = convertWidgetCoordinates(event->x(), event->y());
     activeNode = net.getNodeAtPoint(point.x, point.y);
-    timeUpdate.stop();
+//    timeUpdate.stop();
     if (activeNode != NULL) activeNode->setXY(point.x, point.y);
-    timeUpdate.start();
+//    timeUpdate.start();
 }
 
 void Widget::mouseMoveEvent(QMouseEvent *event)
