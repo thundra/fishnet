@@ -29,14 +29,15 @@ void Node::draw(int timeElapsed)
 {
     if (!hooked)
     {
-        x += speed.getX() * timeElapsed;
-        y += speed.getY() * timeElapsed;
-        if (y <= -LIMIT_FRAME)
-        {
-            y = -LIMIT_FRAME;
-            speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
-        }
-        if (speed.getY() > -0.07 && speed.getY() < 0.07) speed.set(0, 0);
+        calculateNextState(timeElapsed);
+//        x += speed.getX() * timeElapsed;
+//        y += speed.getY() * timeElapsed;
+//        if (y <= -LIMIT_FRAME)
+//        {
+//            y = -LIMIT_FRAME;
+//            speed.set(-speed.getX() * 0.95, -speed.getY() * 0.95);
+//        }
+//        if (speed.getY() > -0.07 && speed.getY() < 0.07) speed.set(0, 0);
     }
 
     glColor3f(1.0, 1.0, 1.0);
@@ -60,10 +61,23 @@ bool Node::check(double x, double y)
 
 void Node::calculateNextState(int timeElapsed)
 {
-    if (!hooked)
-    {
-        speed += earthForce * timeElapsed * 0.9;
-    }
+    Vector acceleration = calculateAcceleration(timeElapsed);
+    Vector movement = speed * timeElapsed +
+            acceleration * timeElapsed * timeElapsed / 2.0f;
+    speed += acceleration * (double)timeElapsed;
+
+    x += movement.getX();
+    y += movement.getY();
+}
+
+Vector Node::calculateAcceleration(int timeElapsed)
+{
+    // linkingThreads compute
+    // gravity compute
+    // airresistence compute
+    // Sum all forces and devide it by weight
+    Vector acc(-0.000001, -0.000005);
+    return acc;
 }
 
 void Node::release(Vector newSpeed)

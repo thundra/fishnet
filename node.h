@@ -33,6 +33,7 @@ public:
 
 private:
     void calculateNextState(int timeElapsed);
+    Vector calculateAcceleration(int timeElapsed);
 
     Vector speed;
     Vector earthForce;
