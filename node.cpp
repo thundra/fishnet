@@ -18,6 +18,7 @@ Node::~Node()
 void Node::linkThread(LinkingThread *newThread)
 {
     threads.append(newThread);
+    newThread->connectNode(this);
 }
 
 void Node::listOfThreads()
@@ -73,10 +74,18 @@ void Node::calculateNextState(int timeElapsed)
 Vector Node::calculateAcceleration(int timeElapsed)
 {
     // linkingThreads compute
+    Vector linkForce;
+
+    foreach (LinkingThread* thread, threads) {
+        linkForce += thread->getForce(this);
+    }
+
     // gravity compute
     // airresistence compute
     // Sum all forces and devide it by weight
-    Vector acc(-0.000001, -0.000005);
+//    Vector acc(-0.000001, -0.000005);
+    Vector acc;
+    acc += linkForce * 0.000001;
     return acc;
 }
 

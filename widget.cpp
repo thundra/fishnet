@@ -64,9 +64,9 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
         timer.restart();
         lastPoint = convertWidgetCoordinates(event->x(), event->y());
         activeNode->setXY(lastPoint.x, lastPoint.y);
-        timeUpdate.stop();
+//        timeUpdate.stop();
         updateGL();
-        timeUpdate.start();
+//        timeUpdate.start();
     }
 }
 
