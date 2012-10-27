@@ -78,3 +78,10 @@ void Node::setXY(double x, double y)
     if (x <= LIMIT_FRAME && x >= -LIMIT_FRAME) this->x = x;
     if (y <= LIMIT_FRAME && y >= -LIMIT_FRAME) this->y = y;
 }
+
+Point Node::getCoordinates()
+{
+    return Point(x, y);
+}
+
+Point::Point(double x, double y) : x(x), y(y) {}

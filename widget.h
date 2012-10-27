@@ -22,15 +22,6 @@ protected:
     virtual void mouseMoveEvent(QMouseEvent* event);
     virtual void mouseReleaseEvent(QMouseEvent* event);
 
-private slots:
-    void logout();
-
-public:
-    struct Point {
-        double x;
-        double y;
-    };
-
 private:
     Point convertWidgetCoordinates(double x, double y);
 

@@ -11,6 +11,13 @@
 
 class LinkingThread;
 
+struct Point {
+    Point(double x = 0, double y = 0);
+
+    double x;
+    double y;
+};
+
 class Node
 {
 public:
@@ -22,6 +29,7 @@ public:
     void release(Vector newSpeed);
     bool check(double x, double y);
     void setXY(double x, double y);
+    Point getCoordinates();
 
 private:
     void calculateNextState(int timeElapsed);

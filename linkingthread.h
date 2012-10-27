@@ -1,6 +1,8 @@
 #ifndef LINKINGTHREAD_H
 #define LINKINGTHREAD_H
 
+#include <QPair>
+
 #include "node.h"
 #include "vector.h"
 
@@ -9,14 +11,14 @@ class Node;
 class LinkingThread
 {
 public:
-    LinkingThread() {}
+    LinkingThread();
 
     void connectNode(Node*);
     void draw();
-    Vector getForce();
+    Vector getForce(Node* currentNode);
 
 private:
-    QVector<Node*> nodes;
+    QPair<Node*, Node*> nodes;
 };
 
 #endif // LINKINGTHREAD_H
