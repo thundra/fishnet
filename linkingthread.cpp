@@ -1,7 +1,7 @@
 #include "linkingthread.h"
 #include "math.h"
 
-#define COEF_HOOK 0.33f
+#define COEF_HOOK 1500.0f
 
 LinkingThread::LinkingThread() {
     nodes.first = NULL;
@@ -16,7 +16,16 @@ void LinkingThread::connectNode(Node *newNode)
 
 void LinkingThread::draw()
 {
+    Point point1 = nodes.first->getCoordinates();
+    Point point2 = nodes.second->getCoordinates();
 
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+    glLineWidth(1.0f);
+    glBegin(GL_LINES);
+        glVertex2f(point1.x, point1.y);
+        glVertex2f(point2.x, point2.y);
+    glEnd();
 }
 
 Vector LinkingThread::getForce(Node *currentNode)

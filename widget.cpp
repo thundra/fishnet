@@ -11,6 +11,7 @@ Widget::Widget(QGLWidget *parent)
 void Widget::initializeGL()
 {
     glClearColor(0,0,0,1);
+    glEnable(GL_LINE_SMOOTH);
 
     connect(&timeUpdate, SIGNAL(timeout()), SLOT(update()));
     timeUpdate.setInterval(10);
@@ -64,9 +65,8 @@ void Widget::mouseMoveEvent(QMouseEvent *event)
         timer.restart();
         lastPoint = convertWidgetCoordinates(event->x(), event->y());
         activeNode->setXY(lastPoint.x, lastPoint.y);
-//        timeUpdate.stop();
+
         updateGL();
-//        timeUpdate.start();
     }
 }
 

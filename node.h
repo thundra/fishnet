@@ -25,7 +25,6 @@ public:
     ~Node();
     void linkThread(LinkingThread*);
     void draw(int timeElapsed);
-    void listOfThreads();
     void release(Vector newSpeed);
     bool check(double x, double y);
     void setXY(double x, double y);
@@ -33,7 +32,7 @@ public:
 
 private:
     void calculateNextState(int timeElapsed);
-    Vector calculateAcceleration(int timeElapsed);
+    Vector calculateAcceleration();
 
     Vector speed;
     Vector earthForce;
