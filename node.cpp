@@ -83,8 +83,8 @@ Vector Node::calculateAcceleration()
     }
 
     Vector acc;
-    Vector gravity(0, -0.005);
-    acc += (linkForce * 0.000001 + airResistenceForce + gravity);
+    Vector gravity(0, -0.000065);
+    acc += (linkForce * 0.01 + airResistenceForce + gravity);
 
     return acc;
 }

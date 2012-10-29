@@ -1,7 +1,7 @@
 #include "linkingthread.h"
 #include "math.h"
 
-#define COEF_HOOK 1500.0f
+#define COEF_HOOK 0.010f
 
 LinkingThread::LinkingThread() {
     nodes.first = NULL;
