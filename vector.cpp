@@ -85,6 +85,6 @@ double Vector::getLength() const
 
 Vector Vector::normalized() const
 {
-    return this / getLength();
+    return *this / getLength();
 }
 
