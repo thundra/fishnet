@@ -82,3 +82,9 @@ double Vector::getLength() const
 {
     return hypot(x, y);
 }
+
+Vector Vector::normalized() const
+{
+    return this / getLength();
+}
+
