@@ -11,7 +11,7 @@ Node::~Node()
 {
     if (row != 0 && column == 0)
     {
-        // TODO: Memory leakage - linking threads
+        // @TODO: Memory leakage - linking threads
     }
 }
 
@@ -36,6 +36,7 @@ void Node::draw(int timeElapsed)
 
         foreach (LinkingThread* thread, threads)
         {
+            // @TODO: Eliminate drawing line twice.
             thread->draw();
         }
     }
@@ -74,17 +75,15 @@ Vector Node::calculateAcceleration()
         linkForce += thread->getForce(this);
     }
 
-    double resistenceModule;
     Vector airResistenceForce;
     if (speed.getLength() != 0)
     {
-        resistenceModule = speed.getLength() * speed.getLength() * 0.1f;
-        airResistenceForce = -speed * resistenceModule / speed.getLength();
+        double resistenceModule = speed.getLength() * speed.getLength() * 0.1f;
+        airResistenceForce = -speed.normalized() * resistenceModule;
     }
 
-    Vector acc;
     Vector gravity(0, -0.000065);
-    acc += (linkForce * 0.01 + airResistenceForce + gravity);
+    Vector acc = linkForce * 0.01 + airResistenceForce + gravity;
 
     return acc;
 }
