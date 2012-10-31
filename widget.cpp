@@ -2,7 +2,7 @@
 
 Widget::Widget(QGLWidget *parent)
     : QGLWidget(parent),
-      activeNode(NULL), x(-5), y(-5)
+      activeNode(NULL), x(-5), y(-5), rate(0)
 {
     setWindowTitle(QString("Fishnet"));
     setGeometry(100, 100, 800, 600);
@@ -14,12 +14,16 @@ void Widget::initializeGL()
     glEnable(GL_LINE_SMOOTH);
 
     connect(&timeUpdate, SIGNAL(timeout()), SLOT(update()));
+    connect(&rateTimer, SIGNAL(timeout()), SLOT(logoutRefreshRate()));
     timeUpdate.setInterval(10);
     timeUpdate.start();
+    rateTimer.setInterval(1000);
+    rateTimer.start();
 }
 
 void Widget::paintGL()
 {
+    rate += 1;
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
     glLoadIdentity();
@@ -92,5 +96,13 @@ Point Widget::convertWidgetCoordinates(double x, double y)
     }
 
     return point;
+}
+
+void Widget::logoutRefreshRate()
+{
+    rateTimer.stop();
+    qDebug() << rate;
+    rate = 0;
+    rateTimer.start();
 }
 

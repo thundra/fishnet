@@ -25,16 +25,22 @@ protected:
 private:
     Point convertWidgetCoordinates(double x, double y);
 
+private slots:
+    void logoutRefreshRate();
+
+private:
     FishNet net;
     Node* activeNode;
     QTimer timeUpdate;
     QTime timer;
+    QTimer rateTimer;
     Point lastPoint;
 
     double x;
     double y;
     double aspect;
     double scale;
+    int rate;
 
 };
 
