@@ -33,17 +33,14 @@ Vector LinkingThread::getForce(Node *currentNode)
     double x, y, length;
     Point startPoint = currentNode->getCoordinates();
 
+    Point endPoint;
     if (nodes.first != currentNode) {
-        Point endPoint = nodes.first->getCoordinates();
-
-        x = endPoint.x - startPoint.x;
-        y = endPoint.y - startPoint.y;
+        endPoint = nodes.first->getCoordinates();
     } else {
-        Point endPoint = nodes.second->getCoordinates();
-
-        x = endPoint.x - startPoint.x;
-        y = endPoint.y - startPoint.y;
+        endPoint = nodes.second->getCoordinates();
     }
+    x = endPoint.x - startPoint.x;
+    y = endPoint.y - startPoint.y;
 
     length = hypot(x, y);
 
